@@ -1,5 +1,5 @@
 Summary:	ncurses-based MP3 player for Linux
-Summary(pl):	Bazowany na ncurses odtwarzacz MP3 dla Linuksa
+Summary(pl):	Oparty na ncurses odtwarzacz MP3 dla Linuksa
 Name:		playmp3list
 Version:	0.95a
 Release:	1
@@ -8,6 +8,7 @@ License:	GPL
 Source0:	http://rucus.ru.ac.za/~urban/projects/playmp3list/download/%{name}-%{version}.tar.gz
 # Source0-md5:	542640950fe05519f2e77a9e6f99438a
 URL:		http://rucus.ru.ac.za/~urban/projects/playmp3list/
+BuildRequires:	libstdc++-devel
 BuildRequires:	ncurses-devel
 Requires:	mpg123 >= 0.59r
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -34,20 +35,24 @@ przewijanie za pomoc± strza³ek, ustawianie utworów wg. alfabetu itp.
 %setup -q
 
 %build
-%{__make}
+%{__make} \
+	CXX="%{__cxx}" \
+	CXXFLAGS="%{rpmcflags} -Wall -Wstrict-prototypes -W"
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_bindir},%{_mandir}/man1}
-install %{name} $RPM_BUILD_ROOT%{_bindir}
-install %{name}.1 $RPM_BUILD_ROOT%{_mandir}/man1/
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_mandir}/man1,%{_sysconfdir}}
 
+install %{name} $RPM_BUILD_ROOT%{_bindir}
+install %{name}.1 $RPM_BUILD_ROOT%{_mandir}/man1
+install playmp3listrc $RPM_BUILD_ROOT%{_sysconfdir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
+%doc AUTHORS ChangeLog README TODO
 %attr(755,root,root) %{_bindir}/*
-%doc README AUTHORS TODO ChangeLog COPYING INSTALL playmp3listrc
+%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/playmp3listrc
 %{_mandir}/man1/*
