@@ -6,6 +6,7 @@ Release:	1
 Group:		Applications/Sound
 License:	GPL
 Source0:	http://rucus.ru.ac.za/~urban/projects/playmp3list/download/%{name}-%{version}.tar.gz
+# Source0-md5:	542640950fe05519f2e77a9e6f99438a
 URL:		http://rucus.ru.ac.za/~urban/projects/playmp3list/
 BuildRequires:	ncurses-devel
 Requires:	mpg123 >= 0.59r
