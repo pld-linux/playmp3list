@@ -23,7 +23,7 @@ toggling of shuffle and repeat modes, ID3v1 tag extraction, and more.
 playmp3list jest ca³kiem sympatyczn± nak³adk± dla mpg123 pod konsolê
 za pomoc± której mo¿emy przemieszczaæ siê po katalogach nawet podczas
 odtwarzania utworu. Umo¿liwia przypisywanie klawiszom ró¿nych zdarzeñ,
-ustawieñ startowych oraz zmian kolorystycznych (tematów) poprzez plik
+ustawieñ startowych oraz zmian kolorystycznych (motywów) poprzez plik
 playmp3listrc. Pozwala uruchamiaæ mpg123 wraz z dodatkowymi opcjami.
 Obs³uguje prze³±czanie powtarzania lub losowego odgrywania plików w
 czasie rzeczywistym, ID3v1 tagi, zwiêkszanie/zmniejszanie g³o¶no¶ci,
