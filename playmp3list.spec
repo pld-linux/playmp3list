@@ -4,8 +4,6 @@ Name:		playmp3list
 Version:	0.95a
 Release:	1
 Group:		Applications/Sound
-Group(de):	Applikationen/Laut
-Group(pl):	Aplikacje/D¼wiêk
 License:	GPL
 Source0:	http://rucus.ru.ac.za/~urban/projects/playmp3list/download/%{name}-%{version}.tar.gz
 URL:		http://rucus.ru.ac.za/~urban/projects/playmp3list/
