@@ -8,8 +8,9 @@ Group(de):	Applikationen/Laut
 Group(pl):	Aplikacje/D¼wiêk
 License:	GPL
 Source0:	http://rucus.ru.ac.za/~urban/archive/%{name}-%{version}.tar.gz
-
 URL:		http://rucus.ru.ac.za/~urban/playmp3list/
+BuildRequires:	autoconf
+BuildRequires:	automake
 Requires:	mpg123 >= 0.59r
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
