@@ -41,7 +41,6 @@ install -d $RPM_BUILD_ROOT{%{_bindir},%{_mandir}/man1}
 install %{name} $RPM_BUILD_ROOT%{_bindir}
 install %{name}.1 $RPM_BUILD_ROOT%{_mandir}/man1/
 
-gzip -9nf README AUTHORS TODO ChangeLog COPYING INSTALL playmp3listrc
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -49,5 +48,5 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/*
-%doc *.gz
+%doc README AUTHORS TODO ChangeLog COPYING INSTALL playmp3listrc
 %{_mandir}/man1/*
