@@ -1,0 +1,57 @@
+--- playlist.cc.orig	Thu Nov 22 09:30:44 2001
++++ playlist.cc	Thu Nov 22 09:31:55 2001
+@@ -339,7 +339,10 @@
+ /* Guesses a file's filetype from the extension */
+ { if (is_a_dir(filename)) return FT_DIR;		// it's a dir
+   char* ext = strrchr(filename,'.');
+-  if (!ext) return FT_OTHER;				// no extension
++  if (!ext) {						// no extension
++    if (checklist(filename)) return FT_PLAYLIST;
++    else return FT_OTHER;
++  }
+   if (!strcasecmp(ext,".mp3") ||
+       !strcasecmp(ext,".mp2")) return FT_SONG;  	// it's a song
+   if (!strcasecmp(ext,".m3u") ||
+--- interface.cc.orig	Thu Nov 22 09:43:34 2001
++++ interface.cc	Thu Nov 22 09:46:16 2001
+@@ -344,24 +344,22 @@
+   mvaddstr( 1, 2, "DEFAULT CONTROL KEYS");
+   mvaddstr( 2, 2, "--------------------");
+   mvaddstr( 3, 2, "Z or Y\t\tPrevious");
+-  mvaddstr( 4, 2, "X\t\t\tPlay");
+-  mvaddstr( 5, 2, "C\t\t\tPause");
+-  mvaddstr( 6, 2, "V\t\t\tStop");
+-  mvaddstr( 7, 2, "B or SPACE\t\tNext");
+-  mvaddstr( 8, 2, "UP, DOWN etc.\t\tMove up/down playlist");
+-  mvaddstr( 9, 2, "ENTER\t\t\tPlay hilighted song/ browse dir/playlist");
+-  mvaddstr(10, 2, "LT, RT or N, M\tRewind/fast-forward current song");
+-  mvaddstr(11, 2, "S, R\t\t\tToggle shuffle/repeat mode");
+-  mvaddstr(12, 2, "F\t\t\tToggle full/short filename display");
+-  mvaddstr(13, 2, "T\t\t\tToggle time elapsed/remaining display");
+-  mvaddstr(14, 2, "A\t\t\tToggle alphabetisisation of playlist");
+-  mvaddstr(15, 2, "I\t\t\tDisplay ID3v1 tag info (if present) of hilighted song");
+-  mvaddstr(16, 2, "< > or - +\t\tDecrease/increase volume by 1%");
+-  mvaddstr(17, 2, "/, ~, BKSP\t\tJump to root/home/parent directory");
+-  mvaddstr(18, 2, "` <key>\t\tSearch for next song starting with a letter");
+-  mvaddstr(19, 2, "^L or ^R\t\tRedraw window");
+-  mvaddstr(20, 2, "Q\t\t\tQuit");
+-  for(int i=1; i <= 20; i++)
++  mvaddstr( 4, 2, "X, C, V\t\tPlay, Pause, Stop");
++  mvaddstr( 5, 2, "B or SPACE\t\tNext");
++  mvaddstr( 6, 2, "UP, DOWN etc.\t\tMove up/down playlist");
++  mvaddstr( 7, 2, "ENTER\t\t\tPlay hilighted song/ browse dir/playlist");
++  mvaddstr( 8, 2, "LT, RT or N, M\tRewind/fast-forward current song");
++  mvaddstr( 9, 2, "S, R\t\t\tToggle shuffle/repeat mode");
++  mvaddstr(10, 2, "F\t\t\tToggle full/short filename display");
++  mvaddstr(11, 2, "T\t\t\tToggle time elapsed/remaining display");
++  mvaddstr(12, 2, "A\t\t\tToggle alphabetisisation of playlist");
++  mvaddstr(13, 2, "I\t\t\tDisplay ID3v1 tag info (if present) of hilighted song");
++  mvaddstr(14, 2, "< > or - +\t\tDecrease/increase volume by 1%");
++  mvaddstr(15, 2, "/, ~, BKSP\t\tJump to root/home/parent directory");
++  mvaddstr(16, 2, "` <key>\t\tSearch for next song starting with a letter");
++  mvaddstr(17, 2, "^L or ^R\t\tRedraw window");
++  mvaddstr(18, 2, "Q\t\t\tQuit");
++  for(int i=1; i <= lines-4; i++)
+     mvchgat(i, 2, cols-4, style[11], 11, NULL);
+   refresh();
+ } // draw_help

@@ -1,0 +1,119 @@
+diff -uN orig/interface.cc interface.cc
+--- orig/interface.cc	Mon Aug 27 17:17:14 2001
++++ interface.cc	Mon Aug 27 17:17:03 2001
+@@ -269,15 +269,12 @@
+ void 
+ playmp3listWindow::scrollto(int showpos)
+ { // Some code to scroll the window to show this selection
+-  if (top > showpos)
+-    { top = showpos - ((lines-5) / 2);
+-      if (top < 0) top = 0;
+-    }
+-  else if (top + (lines-6) < showpos)
+-    { top = showpos-((lines-5)/2);
+-      if (top+(lines-6) > playlist->count())
+-        top = playlist->count() - lines + 5;
+-    }
++  if ((top > showpos) || (top + lines - 6 < showpos))
++  { top = showpos - ((lines - 5) / 2);
++    int topatbottom = playlist->count() - (lines - 5);
++    if (top > topatbottom) top = topatbottom;
++    if (top < 0) top = 0;
++  }
+   draw_list();
+ } // scrollto
+ 
+@@ -285,24 +282,13 @@
+ playmp3listWindow::set_playpos(int pplaypos)
+ { playpos = pplaypos;
+   scrollto(playpos);
+-  
+-  /*if (top > playpos) 
+-    { top = playpos - ((lines-5) / 2);
+-      if (top < 0) top = 0;
+-    }  
+-  else if (top + (lines-6) < playpos) 
+-    { top = playpos-((lines-5)/2); 
+-      if (top+(lines-6) > playlist->count())
+-        top = playlist->count() - lines + 5;
+-    }
+-  draw_list();*/
+ } // set_playpos
+ 
+ void
+ playmp3listWindow::set_pos(int ppos)
+-{ pos = ppos;
+-  scrollto(pos);
+-}
++{ scrollto(ppos);
++  pos = ppos - top;
++} // set_pos
+ 
+ void
+ playmp3listWindow::set_timeremaining_mode(bool rem_mode)
+diff -uN orig/main.cc main.cc
+--- orig/main.cc	Mon Aug 27 17:17:14 2001
++++ main.cc	Mon Aug 27 17:17:03 2001
+@@ -35,6 +35,7 @@
+ #include SOUNDCARD
+ #include "genre.h"
+ 
++extern void recode_string (char *s);
+ bool shuffle;
+ int volume;
+ playmp3listWindow *interface;
+@@ -97,7 +98,7 @@
+    }
+   else // Add current directory to front of filename
+    { getcwd(fullname, 1023);
+-     strcat(fullname, "/");
++     if (strcmp(fullname,"/")) strcat(fullname, "/");
+      strcat(fullname, shortname);
+      return fullname;
+    }
+@@ -199,6 +200,7 @@
+   bool found = false;
+   while (c <= playlist->count() && !found) 
+    { thisfullname = fullnameof(playlist->item(c));
++     fprintf(stderr, "comparing '%s'->'%s' to '%s'\n",playlist->item(c),thisfullname,searchname);
+      if (!strcmp(thisfullname,searchname))
+        found = true; else c++;
+    }
+@@ -212,6 +214,7 @@
+   if (shuffle) playlist->shuffle();
+   interface->set_listname(playlist->get_listname());
+   c = posinlist(prevdirname);
++  //fprintf(stderr,"Previous dir, '%s' found at pos %d\n",prevdirname,c);
+   getcwd(prevdirname, 1023);
+   interface->erase_list();
+   if (c != -1) interface->set_pos(c);
+@@ -268,6 +271,7 @@
+ 	sprintf(temp[6],"Genre: %s",genre);
+ 	sprintf(temp[7],"Comment: %s",comment);
+ 	strcpy(temp[8],"");
++	for (lc = 0; lc < 9; lc++) recode_string (temp[lc]);
+ 	interface->draw_info(temp);
+ 	for (lc = 0; lc < 9; lc++) delete[] temp[lc];
+       }
+@@ -872,6 +876,7 @@
+         return(2);
+       }
+      else printf("done.\n");
++     getcwd(prevdirname, 1023);
+    }
+   else			// Compile playlist from arguments...
+    { printf("Compiling playlist from arguments...");
+Common subdirectories: orig/orig and ./orig
+diff -uN orig/playlist.cc playlist.cc
+--- orig/playlist.cc	Mon Aug 27 17:17:14 2001
++++ playlist.cc	Mon Aug 27 18:02:18 2001
+@@ -340,7 +340,8 @@
+ { if (is_a_dir(filename)) return FT_DIR;		// it's a dir
+   char* ext = strrchr(filename,'.');
+   if (!ext) return FT_OTHER;				// no extension
+-  if (!strcasecmp(ext,".mp3")) return FT_SONG;  	// it's a song
++  if (!strcasecmp(ext,".mp3") ||
++      !strcasecmp(ext,".mp2")) return FT_SONG;  	// it's a song
+   if (!strcasecmp(ext,".m3u") ||
+       !strcasecmp(ext,".lst") ||
+       !strcasecmp(ext,".list") ||
