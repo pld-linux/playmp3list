@@ -58,5 +58,5 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog README TODO
 %attr(755,root,root) %{_bindir}/*
-%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/playmp3listrc
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/playmp3listrc
 %{_mandir}/man1/*
