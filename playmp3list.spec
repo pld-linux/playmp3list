@@ -1,5 +1,5 @@
 Summary:	ncurses-based MP3 player for Linux
-Summary(pl):	Oparty na ncurses odtwarzacz MP3 dla Linuksa
+Summary(pl.UTF-8):   Oparty na ncurses odtwarzacz MP3 dla Linuksa
 Name:		playmp3list
 Version:	0.95a
 Release:	1
@@ -23,15 +23,15 @@ schemes (themes) through a playmp3listrc file. It allows additional
 parameters to be passed to mpg123 if necessary. It features real-time
 toggling of shuffle and repeat modes, ID3v1 tag extraction, and more.
 
-%description -l pl
-playmp3list jest ca³kiem sympatyczn± nak³adk± dla mpg123 pod konsolê
-za pomoc± której mo¿emy przemieszczaæ siê po katalogach nawet podczas
-odtwarzania utworu. Umo¿liwia przypisywanie klawiszom ró¿nych zdarzeñ,
-ustawieñ startowych oraz zmian kolorystycznych (motywów) poprzez plik
-playmp3listrc. Pozwala uruchamiaæ mpg123 wraz z dodatkowymi opcjami.
-Obs³uguje prze³±czanie powtarzania lub losowego odgrywania plików w
-czasie rzeczywistym, ID3v1 tagi, zwiêkszanie/zmniejszanie g³o¶no¶ci,
-przewijanie za pomoc± strza³ek, ustawianie utworów wg. alfabetu itp.
+%description -l pl.UTF-8
+playmp3list jest caÅ‚kiem sympatycznÄ… nakÅ‚adkÄ… dla mpg123 pod konsolÄ™
+za pomocÄ… ktÃ³rej moÅ¼emy przemieszczaÄ‡ siÄ™ po katalogach nawet podczas
+odtwarzania utworu. UmoÅ¼liwia przypisywanie klawiszom rÃ³Å¼nych zdarzeÅ„,
+ustawieÅ„ startowych oraz zmian kolorystycznych (motywÃ³w) poprzez plik
+playmp3listrc. Pozwala uruchamiaÄ‡ mpg123 wraz z dodatkowymi opcjami.
+ObsÅ‚uguje przeÅ‚Ä…czanie powtarzania lub losowego odgrywania plikÃ³w w
+czasie rzeczywistym, ID3v1 tagi, zwiÄ™kszanie/zmniejszanie gÅ‚oÅ›noÅ›ci,
+przewijanie za pomocÄ… strzaÅ‚ek, ustawianie utworÃ³w wg. alfabetu itp.
 
 %prep
 %setup -q
