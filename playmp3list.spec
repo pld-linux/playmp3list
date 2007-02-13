@@ -1,5 +1,5 @@
 Summary:	ncurses-based MP3 player for Linux
-Summary(pl.UTF-8):   Oparty na ncurses odtwarzacz MP3 dla Linuksa
+Summary(pl.UTF-8):	Oparty na ncurses odtwarzacz MP3 dla Linuksa
 Name:		playmp3list
 Version:	0.95a
 Release:	1
